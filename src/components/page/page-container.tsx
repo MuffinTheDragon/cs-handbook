@@ -1,5 +1,6 @@
 import { Toc } from "@/components/toc";
 import { BreadcrumbGenerator } from "../breadcrumb-generator";
+import PaginationButtons from "../pagination-buttons";
 
 export const PageContainer = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -18,6 +19,7 @@ export const PageContainer = ({ children }: { children: React.ReactNode }) => {
         <div className="sticky top-10 hidden xl:flex xl:flex-col xl:items-start xl:justify-center xl:gap-4">
           <Toc />
         </div>
+        <PaginationButtons />
       </main>
     </div>
   );
