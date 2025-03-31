@@ -1,5 +1,6 @@
 "use client";
 
+import { H3 } from "@/components/typography/h3";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ArrowLeft, ArrowRight, Pause, Play, RefreshCw } from "lucide-react";
@@ -126,10 +127,7 @@ export const PointerVisualizer: React.FC = () => {
 
   return (
     <Card className="border-border bg-card text-card-foreground w-full p-6 shadow-md">
-      <h2 className="mb-6 text-center text-xl font-semibold">
-        Two-Pointer Technique Visualization
-      </h2>
-
+      <H3 title="Two-Pointer Technique Visualization" className="text-center" />
       <div className="space-y-8">
         {/* Array visualization */}
         <div className="flex justify-center">
