@@ -4,6 +4,7 @@ import { ItemList, ItemListItem } from "@/components/item-list";
 import { PageContainer } from "@/components/page/page-container";
 import { H1 } from "@/components/typography/h1";
 import { H2 } from "@/components/typography/h2";
+import { H3 } from "@/components/typography/h3";
 import { PointerVisualizer } from "./walkthrough";
 
 export default function Home() {
@@ -38,12 +39,36 @@ export default function Home() {
       <CodeBlock code={TEMPLATE}>
         <HighlightedCode code={TEMPLATE} lang="python" />
       </CodeBlock>
-      <H2 title="Visual Walkthrough" />
+      <H2 title="Example" />
       <p>
-        Let's say we want to find two numbers that sum up to 6 in the following
-        array
+        Let's say we want to find two numbers that sum up to 6 in a given sorted
+        array. A brute approach would be to check every possible pair in O(n
+        <sup>2</sup>) and see which ones sum up to our target.
       </p>
+      <p>
+        Slightly optmized would be to use a hashmap to store which values we've
+        seen so far and for each value we come across, if we've seen target -
+        that value, then we'll have our pair. This reduces the runtime from O(n
+        <sup>2</sup>) to O(n), but increases the space complexity to O(n) as
+        well.
+      </p>
+      <p>
+        An optimized approach would be to use two pointers that start at
+        opposite ends. The idea is that if the current sum is greater than our
+        target, that means we need to lower our sum. Which we can do by moving
+        the right pointer down. Since the array is sorted, moving the right
+        pointer to left will lower the total sum.
+      </p>
+      <p>
+        Similarly, if the sum is too small, we can move the left pointer up,
+        which will incease our sum and get us closer to target.
+      </p>
+      <H3 title="Visual Walkthrough" />
       <PointerVisualizer />
+      <H3 title="Code" />
+      <CodeBlock code={EXAMPLE_CODE}>
+        <HighlightedCode code={EXAMPLE_CODE} lang="python" />
+      </CodeBlock>
       <H2 title="Sample Problems" />
       <ItemList>
         <ItemListItem url="https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/">
@@ -75,3 +100,15 @@ const TEMPLATE = `def two_pointers(arr):
     else:
       right -= 1
 `;
+
+const EXAMPLE_CODE = `def twoSum(numbers: List[int], target: int) -> List[int]:
+  l, r = 0, len(numbers) - 1
+  
+  while l <= r:
+    if numbers[l] + numbers[r] == target:
+      return [l, r]
+    elif numbers[l] + numbers[r] > target:
+      r -= 1
+    else:
+      l += 1
+  return []`;

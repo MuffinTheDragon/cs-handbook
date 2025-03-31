@@ -5,66 +5,6 @@ import { H1 } from "@/components/typography/h1";
 import { H2 } from "@/components/typography/h2";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-const OLD_CODE = `class Commuter:
-  def __init__(self):
-    pass
-
-  def commute(t: str):
-    if (t == "bus"):
-      # do bus stuff
-      pass
-    elif (t == "car"):
-      # do car stuff
-      pass
-    elif (t == "train"):
-      # do train stuff
-      pass`;
-
-const NEW_CODE = `class TransportStrategy:
-  def __init__(self):
-    pass
-    
-  def transport(self):
-    pass
-    
-class BusStrategy(TransportStrategy):
-  def __init__(self):
-    pass
-  def transport(self):
-    print("Taking bus")
-        
-class TrainStrategy(TransportStrategy):
-  def __init__(self):
-    pass
-  
-  def transport(self):
-    print("Taking train")
-        
-class CarStrategy(TransportStrategy):
-  def __init__(self):
-    pass
-    
-  def transport(self):
-    print("Taking car")
-        
-
-class Commuter2:
-  def __init__(self):
-    # use car by default
-    self.strategy = CarStrategy()
-        
-  def setStrategy(self, strategy: TransportStrategy):
-    self.strategy = strategy
-        
-  def commute(self):
-    self.strategy.transport()
-        
-
-c = Commuter2()
-c.commute() # prints taking car
-c.setStrategy(TrainStrategy())
-c.commute() # prints taking train`;
-
 export default function Home() {
   return (
     <PageContainer>
@@ -125,3 +65,63 @@ export default function Home() {
     </PageContainer>
   );
 }
+
+const OLD_CODE = `class Commuter:
+  def __init__(self):
+    pass
+
+  def commute(t: str):
+    if (t == "bus"):
+      # do bus stuff
+      pass
+    elif (t == "car"):
+      # do car stuff
+      pass
+    elif (t == "train"):
+      # do train stuff
+      pass`;
+
+const NEW_CODE = `class TransportStrategy:
+  def __init__(self):
+    pass
+    
+  def transport(self):
+    pass
+    
+class BusStrategy(TransportStrategy):
+  def __init__(self):
+    pass
+  def transport(self):
+    print("Taking bus")
+        
+class TrainStrategy(TransportStrategy):
+  def __init__(self):
+    pass
+  
+  def transport(self):
+    print("Taking train")
+        
+class CarStrategy(TransportStrategy):
+  def __init__(self):
+    pass
+    
+  def transport(self):
+    print("Taking car")
+        
+
+class Commuter2:
+  def __init__(self):
+    # use car by default
+    self.strategy = CarStrategy()
+        
+  def setStrategy(self, strategy: TransportStrategy):
+    self.strategy = strategy
+        
+  def commute(self):
+    self.strategy.transport()
+        
+
+c = Commuter2()
+c.commute() # prints taking car
+c.setStrategy(TrainStrategy())
+c.commute() # prints taking train`;

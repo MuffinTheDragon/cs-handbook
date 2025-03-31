@@ -26,7 +26,7 @@ export const PaginationButtons = () => {
       : null;
 
   return (
-    <div className="flex justify-between">
+    <div className="my-10 flex justify-between">
       {previousPage && (
         <Button variant="ghost" onClick={() => router.push(previousPage.url)}>
           <ArrowLeft />

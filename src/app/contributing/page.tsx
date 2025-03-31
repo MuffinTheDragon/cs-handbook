@@ -23,7 +23,7 @@ export default function Home() {
         and create the required folders for you.
       </p>
       <p>
-        All the existing routes in the project are defined under
+        All the existing routes in the project are defined under{" "}
         <code>/src/components/sidebar/pages.ts</code>.
       </p>
       <H3 title="Usage" />

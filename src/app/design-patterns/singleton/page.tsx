@@ -5,45 +5,6 @@ import { H1 } from "@/components/typography/h1";
 import { H2 } from "@/components/typography/h2";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-const OLD_CODE = `class Logger:
-  def __init__(self):
-    self.file = open("app.log", "a")
-    
-  def log(self, message: str):
-    self.file.write(f"{message}\\n")
-        
-# In different parts of your application
-logger1 = Logger()
-logger2 = Logger()
-logger3 = Logger()
-
-# Each logger opens its own file handle
-logger1.log("User logged in")
-logger2.log("Database connection failed")
-logger3.log("Cache miss")`;
-
-const NEW_CODE = `class Logger:
-  _instance = None
-
-  def __new__(cls):
-    if cls._instance is None:
-      cls._instance = super(Logger, cls).__new__(cls)
-      cls._instance.file = open("app.log", "a")
-      return cls._instance
-    
-  def log(self, message: str):
-    self.file.write(f"{message}\\n")
-        
-# In different parts of your application
-logger1 = Logger()
-logger2 = Logger()
-logger3 = Logger()
-
-# All loggers share the same instance and file handle
-logger1.log("User logged in")
-logger2.log("Database connection failed")
-logger3.log("Cache miss")`;
-
 export default function Home() {
   return (
     <PageContainer>
@@ -110,3 +71,42 @@ export default function Home() {
     </PageContainer>
   );
 }
+
+const OLD_CODE = `class Logger:
+  def __init__(self):
+    self.file = open("app.log", "a")
+    
+  def log(self, message: str):
+    self.file.write(f"{message}\\n")
+        
+# In different parts of your application
+logger1 = Logger()
+logger2 = Logger()
+logger3 = Logger()
+
+# Each logger opens its own file handle
+logger1.log("User logged in")
+logger2.log("Database connection failed")
+logger3.log("Cache miss")`;
+
+const NEW_CODE = `class Logger:
+  _instance = None
+
+  def __new__(cls):
+    if cls._instance is None:
+      cls._instance = super(Logger, cls).__new__(cls)
+      cls._instance.file = open("app.log", "a")
+      return cls._instance
+    
+  def log(self, message: str):
+    self.file.write(f"{message}\\n")
+        
+# In different parts of your application
+logger1 = Logger()
+logger2 = Logger()
+logger3 = Logger()
+
+# All loggers share the same instance and file handle
+logger1.log("User logged in")
+logger2.log("Database connection failed")
+logger3.log("Cache miss")`;
