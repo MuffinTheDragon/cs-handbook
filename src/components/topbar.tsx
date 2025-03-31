@@ -34,7 +34,12 @@ export function Topbar() {
       </div>
       <div className="flex w-full items-center justify-between sm:justify-end">
         <SearchBar />
-        <Button variant="link">Github</Button>
+        <Link
+          href="https://github.com/MuffinTheDragon/cs-handbook"
+          target="_blank"
+        >
+          <Button variant="link">GitHub</Button>
+        </Link>
       </div>
     </header>
   );

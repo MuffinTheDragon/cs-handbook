@@ -8,7 +8,7 @@ export default function Home() {
     <PageContainer>
       <H1 title="Contributing" subtitle="How to contribute" />
       <p>
-        To make contributions to the handbook, visit the github, clone the repo,
+        To make contributions to the handbook, visit the GitHub, clone the repo,
         and install the dependencies with <code>npm i</code>. Then, have a look
         around the project to see what you want to contribute.
       </p>
