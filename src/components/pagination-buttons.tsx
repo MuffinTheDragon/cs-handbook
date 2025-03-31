@@ -1,19 +1,18 @@
-// PaginationButtons.tsx
-"use client"; // This is necessary for client-side components in Next.js 13+
+"use client";
 
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { PAGES } from "./sidebar/pages";
 import { Button } from "./ui/button";
 
-const PaginationButtons = () => {
+export const PaginationButtons = () => {
   const router = useRouter();
-  const currentPath = usePathname(); // Get the current path
+  const currentPath = usePathname();
   const currentPage = PAGES.find((page) =>
     page.items.some((item) => item.url === currentPath),
   );
 
-  if (!currentPage) return null; // If no current page is found, return null
+  if (!currentPage) return null;
 
   const currentIndex = currentPage.items.findIndex(
     (item) => item.url === currentPath,
@@ -42,5 +41,3 @@ const PaginationButtons = () => {
     </div>
   );
 };
-
-export default PaginationButtons;

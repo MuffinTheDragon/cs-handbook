@@ -1,6 +1,6 @@
 import { Toc } from "@/components/toc";
 import { BreadcrumbGenerator } from "../breadcrumb-generator";
-import PaginationButtons from "../pagination-buttons";
+import { PaginationButtons } from "../pagination-buttons";
 
 export const PageContainer = ({ children }: { children: React.ReactNode }) => {
   return (
