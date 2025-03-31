@@ -8,6 +8,7 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
+import { File, Files } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { PAGES } from "./sidebar/pages";
@@ -52,7 +53,9 @@ export const SearchBar = () => {
             <CommandGroup key={page.title} heading={page.title}>
               {page.url !== "#" && (
                 <CommandItem key={page.url} onSelect={() => onSelect(page.url)}>
-                  <span>{page.title}</span>
+                  <span className="flex items-center gap-4">
+                    <Files /> {page.title}
+                  </span>
                 </CommandItem>
               )}
               {page.items.map((item) => {
@@ -63,7 +66,9 @@ export const SearchBar = () => {
                     key={item.url}
                     onSelect={() => onSelect(item.url)}
                   >
-                    <span>{item.title}</span>
+                    <span className="flex items-center gap-4">
+                      <File /> {item.title}
+                    </span>
                   </CommandItem>
                 );
               })}
