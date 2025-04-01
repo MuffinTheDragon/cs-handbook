@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 export interface AnimationStep {
   pointers: Record<string, number>;
   action: string;
+  result?: number[];
   isSuccess?: boolean;
 }
 

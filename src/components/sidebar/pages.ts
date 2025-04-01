@@ -68,6 +68,10 @@ export const PAGES: PageType[] = [
         description:
           "A technique to solve problems by moving an imaginary window across a data structure.",
       },
-    ],
+    
+      {
+        title: "DFS",
+        url: "/dsa/dfs",
+      },],
   },
 ];

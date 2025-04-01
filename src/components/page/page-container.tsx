@@ -14,12 +14,12 @@ export const PageContainer = ({ children }: { children: React.ReactNode }) => {
         <div className="flex flex-col items-start justify-center gap-4 xl:col-span-2">
           <BreadcrumbGenerator />
           {children}
+          <PaginationButtons />
         </div>
         {/* Desktop layout */}
         <div className="sticky top-10 hidden xl:flex xl:flex-col xl:items-start xl:justify-center xl:gap-4">
           <Toc />
         </div>
-        <PaginationButtons />
       </main>
     </div>
   );
