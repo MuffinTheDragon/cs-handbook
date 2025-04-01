@@ -49,7 +49,6 @@ export const SlidingWindowVisualizer: React.FC = () => {
 
       newSteps.push({
         pointers: { start, end },
-        result: currentSum,
         action: `Initial window sum: ${currentSum}`,
       });
 
@@ -68,7 +67,6 @@ export const SlidingWindowVisualizer: React.FC = () => {
 
         newSteps.push({
           pointers: { start, end },
-          result: currentSum,
           action: isNewMax
             ? `New maximum found: ${currentSum}`
             : `Current sum: ${currentSum}`,
