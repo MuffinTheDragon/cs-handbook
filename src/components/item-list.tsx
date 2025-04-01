@@ -18,7 +18,7 @@ export const ItemListItem = ({ children, url }: IItemListProps) => {
     <div className="p-2 [&:not(:last-child)]:border-b">
       <Button variant="link" asChild>
         <a href={url} target="_blank">
-          <span className="text-base">{children}</span>
+          {children}
         </a>
       </Button>
     </div>

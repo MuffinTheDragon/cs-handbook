@@ -65,6 +65,8 @@ export const PAGES: PageType[] = [
       {
         title: "Sliding window",
         url: "/dsa/sliding-window",
+        description:
+          "A technique to solve problems by moving an imaginary window across a data structure.",
       },
     ],
   },
