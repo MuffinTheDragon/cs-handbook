@@ -9,9 +9,12 @@ export default function Home() {
 
   return (
     <PageContainer>
-      <H1 title="DSA" subtitle="Add your section subtitle here" />
+      <H1 title="DSA" subtitle="Data structures & Algorithms" />
 
-      <p>Add your section description here.</p>
+      <p>
+        This section contains common data structures and algorithms useful to
+        know along with their use cases, examples, templates, and much more.
+      </p>
 
       <AvailableSections sections={sections} />
 
