@@ -31,12 +31,12 @@ export const Toc = () => {
 };
 
 const TocList = ({ nestedHeadings }: { nestedHeadings: IHeading[] }) => (
-  <ul className="mt-4 space-y-1 border-l pl-4">
+  <ul className="mt-4 space-y-2 border-l pl-4">
     {nestedHeadings.map((heading) => (
       <li key={heading.id}>
         <a href={`#${heading.id}`}>{heading.title}</a>
         {heading.items.length > 0 && (
-          <ul className="space-y-1 pl-4">
+          <ul className="space-y-2 pl-4">
             {heading.items.map((child) => (
               <li key={child.id}>
                 <a href={`#${child.id}`}>{child.title}</a>
