@@ -1,7 +1,6 @@
 "use client";
 
 import { ArrayVisualizer } from "@/components/animations/array/array-visualizer";
-import { H3 } from "@/components/typography/h3";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { AnimationStep, useAlgorithmAnimation } from "@/hooks/use-animation";
@@ -133,10 +132,9 @@ export const SlidingWindowVisualizer: React.FC = () => {
 
   return (
     <Card className="border-border bg-card text-card-foreground w-full p-6 shadow-md">
-      <H3
-        title="Sliding Window Technique: Maximum Sum Subarray"
-        className="text-center"
-      />
+      <p className="text-center text-lg font-semibold sm:text-xl">
+        Sliding Window Technique: Maximum Sum Subarray
+      </p>
       <div className="space-y-12">
         <div className="mb-8">
           <p className="text-muted-foreground mb-4 text-center">

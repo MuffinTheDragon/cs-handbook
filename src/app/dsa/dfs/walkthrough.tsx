@@ -1,7 +1,6 @@
 "use client";
 
-import TreeVisualizer from "@/components/animations/tree/tree-visualizer";
-import { H3 } from "@/components/typography/h3";
+import GridVisualizer from "@/components/animations/grid/grid-visualizer";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { AnimationStep, useAlgorithmAnimation } from "@/hooks/use-animation";
@@ -9,116 +8,113 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import { Pause, Play, RefreshCw } from "lucide-react";
 import React, { useEffect, useState } from "react";
 
-// Define a simple binary tree for visualization
-interface TreeNode {
-  id: number;
-  value: number;
-  left: TreeNode | null;
-  right: TreeNode | null;
-}
-
-// Create a smaller, more balanced sample tree
-const createSampleTree = (): TreeNode => {
-  return {
-    id: 1,
-    value: 8,
-    left: {
-      id: 2,
-      value: 3,
-      left: {
-        id: 4,
-        value: 1,
-        left: null,
-        right: null,
-      },
-      right: {
-        id: 5,
-        value: 6,
-        left: null,
-        right: null,
-      },
-    },
-    right: {
-      id: 3,
-      value: 10,
-      left: {
-        id: 6,
-        value: 9,
-        left: null,
-        right: null,
-      },
-      right: {
-        id: 7,
-        value: 14,
-        left: null,
-        right: null,
-      },
-    },
-  };
+// Create a sample grid for the Number of Islands problem
+// 1 represents land, 0 represents water
+const createSampleGrid = (): number[][] => {
+  return [
+    [1, 1, 0, 0, 0],
+    [1, 1, 0, 0, 0],
+    [0, 0, 1, 0, 0],
+    [0, 0, 0, 1, 1],
+  ];
 };
 
-const tree = createSampleTree();
+const grid = createSampleGrid();
 
 export const DFSVisualizer: React.FC = () => {
   const [steps, setSteps] = useState<AnimationStep[]>([]);
-  const [visitedNodes, setVisitedNodes] = useState<number[]>([]);
-  const [dfsResult, setDfsResult] = useState<number[]>([]);
+  const [visitedCells, setVisitedCells] = useState<
+    { row: number; col: number }[]
+  >([]);
+  const [islandCount, setIslandCount] = useState<number>(0);
   const isMobile = useIsMobile();
 
-  // Calculate DFS steps
+  // Calculate Number of Islands DFS steps
   useEffect(() => {
     const newSteps: AnimationStep[] = [];
-    const visitedValues: number[] = [];
+    const visited: { row: number; col: number }[] = [];
+    let islandCounter = 0;
 
-    const performDFS = (node: TreeNode | null, steps: AnimationStep[]) => {
-      if (!node) return;
+    const isValidCell = (row: number, col: number): boolean => {
+      return row >= 0 && row < grid.length && col >= 0 && col < grid[0].length;
+    };
 
-      // Visit the current node
-      visitedValues.push(node.value);
-      steps.push({
-        pointers: { current: node.id },
-        action: `Visiting node with value: ${node.value}`,
-        result: [...visitedValues],
+    const dfs = (row: number, col: number) => {
+      // Check boundaries and if cell is land and not visited
+      if (
+        !isValidCell(row, col) ||
+        grid[row][col] === 0 ||
+        visited.some((cell) => cell.row === row && cell.col === col)
+      ) {
+        return;
+      }
+
+      // Mark cell as visited
+      visited.push({ row, col });
+      newSteps.push({
+        pointers: { current: 1 },
+        action: `Visiting land cell at (${row}, ${col})`,
+        result: [...visited],
       });
 
-      // Visit left subtree
-      if (node.left) {
-        steps.push({
-          pointers: { current: node.id, next: node.left.id },
-          action: `Moving to left child of ${node.value}`,
-          result: [...visitedValues],
-        });
-        performDFS(node.left, steps);
-      }
+      // Visit all adjacent cells (4-directionally)
+      const directions = [
+        [-1, 0],
+        [1, 0],
+        [0, -1],
+        [0, 1],
+      ]; // up, down, left, right
 
-      // Visit right subtree
-      if (node.right) {
-        steps.push({
-          pointers: { current: node.id, next: node.right.id },
-          action: `Moving to right child of ${node.value}`,
-          result: [...visitedValues],
-        });
-        performDFS(node.right, steps);
-      }
+      for (const [dr, dc] of directions) {
+        const newRow = row + dr;
+        const newCol = col + dc;
 
-      // Backtrack
-      if (node.id !== 1) {
-        // If not the root
-        steps.push({
-          pointers: { current: node.id, backtrack: 1 },
-          action: `Backtracking from node ${node.value}`,
-          result: [...visitedValues],
-        });
+        if (
+          isValidCell(newRow, newCol) &&
+          grid[newRow][newCol] === 1 &&
+          !visited.some((cell) => cell.row === newRow && cell.col === newCol)
+        ) {
+          newSteps.push({
+            pointers: { current: 1 },
+            action: `Moving to adjacent land cell at (${newRow}, ${newCol})`,
+            result: [...visited],
+          });
+          dfs(newRow, newCol);
+        }
       }
     };
 
-    performDFS(tree, newSteps);
-    setDfsResult(visitedValues);
+    // Loop through all cells in the grid
+    for (let row = 0; row < grid.length; row++) {
+      for (let col = 0; col < grid[0].length; col++) {
+        if (
+          grid[row][col] === 1 &&
+          !visited.some((cell) => cell.row === row && cell.col === col)
+        ) {
+          islandCounter++;
+          newSteps.push({
+            pointers: { current: 1 },
+            action: `Found new island #${islandCounter} starting at (${row}, ${col})`,
+            result: [...visited],
+          });
+          dfs(row, col);
+        }
+      }
+    }
+
+    // Final step showing the total count
+    newSteps.push({
+      pointers: { current: 1 },
+      action: `Total number of islands found: ${islandCounter}`,
+      result: [...visited],
+      isSuccess: true,
+    });
+
+    setIslandCount(islandCounter);
     setSteps(newSteps);
   }, []);
 
   const {
-    pointers,
     currentStep,
     isPlaying,
     isFinished,
@@ -134,34 +130,50 @@ export const DFSVisualizer: React.FC = () => {
     speed: 1000,
   });
 
+  // Update visited cells based on the current step
   useEffect(() => {
     if (currentStep >= 0 && currentStepData?.result) {
-      setVisitedNodes(currentStepData.result);
+      setVisitedCells(currentStepData.result);
     } else {
-      setVisitedNodes([]);
+      setVisitedCells([]);
     }
   }, [currentStep, currentStepData]);
 
+  // Get current cell position from the current step (parsing from action text)
+  const getCurrentCell = () => {
+    if (currentStep < 0 || !currentStepData?.action) return undefined;
+
+    const match = currentStepData.action.match(/\((\d+), (\d+)\)/);
+    if (match) {
+      return {
+        row: parseInt(match[1]),
+        col: parseInt(match[2]),
+      };
+    }
+    return undefined;
+  };
+
   return (
     <Card className="border-border bg-card text-card-foreground w-full p-4 shadow-md sm:p-6">
-      <H3
-        title="Depth-First Search (DFS) Tree Traversal"
-        className="text-center"
-      />
-
+      <p className="text-center text-lg font-semibold sm:text-xl">
+        Number of Islands - DFS Solution
+      </p>
       <div className="space-y-4 sm:space-y-8">
         <div className="mb-2 sm:mb-4">
           <p className="text-muted-foreground mb-3 text-center text-sm sm:text-base">
-            Traversing a binary tree using DFS in pre-order (root, left, right)
+            Finding the number of islands in a grid using Depth-First Search
           </p>
 
-          <TreeVisualizer
-            tree={tree}
-            currentNodeId={pointers.current}
-            nextNodeId={pointers.next}
-            isBacktracking={!!pointers.backtrack}
-            className="mt-2"
-          />
+          <div className="flex justify-center">
+            <GridVisualizer
+              grid={grid}
+              currentCell={getCurrentCell()}
+              visitedCells={visitedCells}
+              cellSize={isMobile ? 32 : 40}
+              className="mt-2"
+              islandMode={true} // Set to true for island visualization
+            />
+          </div>
         </div>
 
         <div className="bg-muted/30 border-border min-h-[80px] rounded-md border p-3 text-center sm:min-h-[100px] sm:p-4">
@@ -172,9 +184,9 @@ export const DFSVisualizer: React.FC = () => {
           ) : (
             <div>
               <div className="mb-2 flex flex-wrap items-center justify-center gap-2 sm:gap-4">
-                <div className="bg-primary/20 border-primary max-w-full overflow-auto rounded-md border px-2 py-1 text-sm sm:text-base">
-                  <span className="whitespace-nowrap">
-                    Visited nodes: {visitedNodes.join(" → ")}
+                <div className="bg-primary/20 border-primary rounded-md border px-2 py-1 text-sm sm:text-base">
+                  <span>
+                    Islands found: {islandCount > 0 ? islandCount : "?"}
                   </span>
                 </div>
               </div>
@@ -186,7 +198,7 @@ export const DFSVisualizer: React.FC = () => {
 
           {isFinished && (
             <div className="mt-3 text-sm font-medium text-green-500 sm:text-base">
-              DFS Traversal Complete: {dfsResult.join(", ")}
+              Algorithm Complete: Found {islandCount} islands!
             </div>
           )}
         </div>

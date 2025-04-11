@@ -68,10 +68,19 @@ export const PAGES: PageType[] = [
         description:
           "A technique to solve problems by moving an imaginary window across a data structure.",
       },
-    
+
       {
         title: "DFS",
         url: "/dsa/dfs",
-      },],
+        description:
+          "A technique to solve problems with iterating depth-first in a tree or graph",
+      },
+      {
+        title: "BFS",
+        url: "/dsa/bfs",
+        description:
+          "A technique to solve problems by iterating breadth-first (aka level-by-level) in a tree or graph",
+      },
+    ],
   },
 ];

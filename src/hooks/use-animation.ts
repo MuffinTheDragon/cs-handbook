@@ -3,7 +3,8 @@ import { useEffect, useState } from "react";
 export interface AnimationStep {
   pointers: Record<string, number>;
   action: string;
-  result?: number[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  result?: any;
   isSuccess?: boolean;
 }
 

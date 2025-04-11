@@ -5,7 +5,8 @@ import { PageContainer } from "@/components/page/page-container";
 import { H1 } from "@/components/typography/h1";
 import { H2 } from "@/components/typography/h2";
 import { H3 } from "@/components/typography/h3";
-import DFSVisualizer from "./walkthrough";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import DFSVisualizerGraph from "./walkthrough";
 
 export default function Home() {
   return (
@@ -59,11 +60,24 @@ export default function Home() {
         cycles.
       </p>
       <H3 title="Template" />
-      <CodeBlock code="TEMPLATE_GRAPH">
-        <HighlightedCode code={TEMPLATE_GRAPH} lang="py" />
-      </CodeBlock>
+      <Tabs defaultValue="iterative" className="w-full">
+        <TabsList>
+          <TabsTrigger value="iterative">Iterative</TabsTrigger>
+          <TabsTrigger value="recursive">Recursive</TabsTrigger>
+        </TabsList>
+        <TabsContent value="iterative">
+          <CodeBlock code={TEMPLATE_GRAPH_ITERATIVE}>
+            <HighlightedCode code={TEMPLATE_GRAPH_ITERATIVE} lang="python" />
+          </CodeBlock>
+        </TabsContent>
+        <TabsContent value="recursive">
+          <CodeBlock code={TEMPLATE_GRAPH_RECURSIVE}>
+            <HighlightedCode code={TEMPLATE_GRAPH_RECURSIVE} lang="python" />
+          </CodeBlock>
+        </TabsContent>
+      </Tabs>
       <H2 title="Visual Walkthrough" />
-      <DFSVisualizer />
+      <DFSVisualizerGraph />
       <H3 title="Code" />
       <CodeBlock code={CODE}>
         <HighlightedCode code={CODE} lang="python" />
@@ -79,6 +93,9 @@ export default function Home() {
         <ItemListItem url="https://leetcode.com/problems/surrounded-regions/">
           Surrounded Regions
         </ItemListItem>
+        <ItemListItem url="https://leetcode.com/problems/shortest-bridge/">
+          Shortest Bridge (DFS + BFS)
+        </ItemListItem>
       </ItemList>
     </PageContainer>
   );
@@ -92,7 +109,20 @@ const TEMPLATE_TREE = `def dfs(root):
   dfs(root.right)
 `;
 
-const TEMPLATE_GRAPH = `visited = set()
+const TEMPLATE_GRAPH_ITERATIVE = `stack = [node]
+visited = set([node])
+
+while stack:
+  n = stack.pop()
+  do_something(n)
+  
+  for neighbor in get_neighbors(n):
+    if neighbor not in visited:
+      visited.add(neighbor)
+      stack.append(neighbor)
+`;
+
+const TEMPLATE_GRAPH_RECURSIVE = `visited = set()
 
 def dfs(root):
   if root in visited:
@@ -105,15 +135,27 @@ def dfs(root):
     dfs(neighbor)
 `;
 
-const CODE = `def preorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
-  ans = []
-  
-  def dfs(node):
-    if not node:
-      return
-    ans.append(node.val)
-    dfs(node.left)
-    dfs(node.right)
+const CODE = `class Solution:
+  def numIslands(self, grid: List[List[str]]) -> int:
+    ans = 0
+    n = len(grid)
+    m = len(grid[0])
+    
+    def dfs(i, j):
+      if i < 0 or i >= n or j < 0 or j >= m or grid[i][j] == "0":
+        return
+
+      grid[i][j] = "0"
+      helper(i-1,j)
+      helper(i+1,j)
+      helper(i,j-1)
+      helper(i,j+1)
+
         
-  dfs(root)
-  return ans`;
+    for i in range(n):
+      for j in range(m):
+        if grid[i][j] == "1":
+          dfs(i, j)
+          ans += 1
+
+    return ans`;
