@@ -53,9 +53,6 @@ export default function Home() {
           </CodeBlock>
         </TabsContent>
       </Tabs>
-      <CodeBlock code={TEMPLATE}>
-        <HighlightedCode code={TEMPLATE} lang="python" />
-      </CodeBlock>
       <H2 title="Example" />
       <p>
         Let's say we want to find two numbers that sum up to 6 in a given sorted
@@ -118,16 +115,17 @@ const TEMPLATE = `def two_pointers(arr):
       right -= 1
 `;
 
-const TEMPLATE_LINKED_LIST = `slow = head
-fast = head
+const TEMPLATE_LINKED_LIST = `def linked_list(head):
+  slow = head
+  fast = head
 
-while fast and fast.next:
-  slow = slow.next
-  fast = fast.next.next
+  while fast and fast.next:
+    slow = slow.next
+    fast = fast.next.next
 
-  if slow == fast:
-    # found cycle
-
+    if slow == fast:
+      # found cycle
+      return True
 `;
 
 const EXAMPLE_CODE = `def twoSum(numbers: List[int], target: int) -> List[int]:
