@@ -5,6 +5,7 @@ import { PageContainer } from "@/components/page/page-container";
 import { H1 } from "@/components/typography/h1";
 import { H2 } from "@/components/typography/h2";
 import { H3 } from "@/components/typography/h3";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { PointerVisualizer } from "./walkthrough";
 
 export default function Home() {
@@ -36,6 +37,22 @@ export default function Home() {
         <li>Working with linked lists (i.e. fast and slow)</li>
       </ul>
       <H2 title="Template" />
+      <Tabs defaultValue="classic" className="w-full">
+        <TabsList>
+          <TabsTrigger value="classic">Classic</TabsTrigger>
+          <TabsTrigger value="ll">Linked List</TabsTrigger>
+        </TabsList>
+        <TabsContent value="classic">
+          <CodeBlock code={TEMPLATE}>
+            <HighlightedCode code={TEMPLATE} lang="python" />
+          </CodeBlock>
+        </TabsContent>
+        <TabsContent value="ll">
+          <CodeBlock code={TEMPLATE_LINKED_LIST}>
+            <HighlightedCode code={TEMPLATE_LINKED_LIST} lang="python" />
+          </CodeBlock>
+        </TabsContent>
+      </Tabs>
       <CodeBlock code={TEMPLATE}>
         <HighlightedCode code={TEMPLATE} lang="python" />
       </CodeBlock>
@@ -99,6 +116,18 @@ const TEMPLATE = `def two_pointers(arr):
       left += 1
     else:
       right -= 1
+`;
+
+const TEMPLATE_LINKED_LIST = `slow = head
+fast = head
+
+while fast and fast.next:
+  slow = slow.next
+  fast = fast.next.next
+
+  if slow == fast:
+    # found cycle
+
 `;
 
 const EXAMPLE_CODE = `def twoSum(numbers: List[int], target: int) -> List[int]:
