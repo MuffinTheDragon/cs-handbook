@@ -29,7 +29,10 @@ export default function Home() {
         <li>Working with trees</li>
         <li>Working with graphs</li>
         <li>Working with multi-dimensional arrays</li>
-        <li>Anytime multi-dimensional arrays mention "shortest"</li>
+        <li>
+          When question mentions shortest / minimum and you can create a graph
+          like representation with a node and children
+        </li>
       </ul>
       <H3 title="Important Note on When to Use BFS vs DFS" />
       <p>
@@ -79,6 +82,9 @@ export default function Home() {
         <ItemListItem url="https://leetcode.com/problems/flood-fill/">
           Flood Fill
         </ItemListItem>
+        <ItemListItem url="https://leetcode.com/problems/minimum-number-of-operations-to-make-x-and-y-equal/">
+          Minimum Number of Operations to Make X and Y Equal
+        </ItemListItem>
       </ItemList>
     </PageContainer>
   );
@@ -86,20 +92,18 @@ export default function Home() {
 
 const TEMPLATE_BFS_TREE = `def bfs(root):
   queue = deque([root])
-  while queue:
-    for _ in range(len(queue)):
-      # look at every node at current level
-      node = queue.popleft()
-      do_something(node)
-      for child in node.children:
-        if child:
-          queue.append(child)
-  return None
+  while queue
+    node = queue.popleft()
+    for child in node.children:
+      if is_goal(child):
+        return FOUND(child)
+      queue.append(child)
+  return NOT_FOUND
 `;
 
 const TEMPLATE_BFS_GRAPH = `def bfs(root):
   queue = deque([root])
-  visited = set([root])
+  visited = set(root)
   while queue:
     node = queue.popleft()
     for neighbor in get_neighbors(node):
