@@ -39,6 +39,20 @@ export default function Home() {
         <li>Working with arrays</li>
         <li>Working with strings</li>
       </ul>
+      <p>
+        Sliding window doesn't work too well in cases where you are looking for{" "}
+        <code>exactly</code> or <code>at least</code>. In those situations, use
+        the following strategy:
+      </p>
+      <ul className="list-disc space-y-2 pl-6">
+        <li>
+          <code>exactly k = atMostK(k) - atMostK(k - 1)</code>
+        </li>
+        <li>
+          <code>at least k = total_subarrays - atMostK(k - 1)</code>
+        </li>
+      </ul>
+      <p>note: total_subarrays = n * (n + 1) // 2</p>
       <H2 title="Template" />
       <CodeBlock code={TEMPLATE}>
         <HighlightedCode code={TEMPLATE} lang="py" />
@@ -98,6 +112,10 @@ export default function Home() {
         </ItemListItem>
         <ItemListItem url="https://leetcode.com/problems/max-consecutive-ones-iii/description/">
           Max Consecutive Ones III
+        </ItemListItem>
+        <ItemListItem url="https://leetcode.com/problems/count-complete-subarrays-in-an-array/description/">
+          Count Complete Subarrays in an Array (hint: this is asking for
+          exactly)
         </ItemListItem>
       </ItemList>
     </PageContainer>
