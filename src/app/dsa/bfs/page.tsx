@@ -92,13 +92,20 @@ export default function Home() {
 
 const TEMPLATE_BFS_TREE = `def bfs(root):
   queue = deque([root])
-  while queue
-    node = queue.popleft()
-    for child in node.children:
-      if is_goal(child):
-        return FOUND(child)
-      queue.append(child)
-  return NOT_FOUND
+  while queue:
+    level_size = len(queue)
+    current_level = []
+
+    # look at every node in current level of tree
+    for _ in range(level_size):
+      node = queue.popleft()
+      # do something with node
+      if node.left:
+        queue.append(node.left)
+      if node.right:
+        queue.append(node.right)
+
+    # do something with current_level if needed
 `;
 
 const TEMPLATE_BFS_GRAPH = `def bfs(root):
